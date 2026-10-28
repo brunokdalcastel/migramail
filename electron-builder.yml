@@ -1,0 +1,43 @@
+# Instalador Windows (NSIS x64, por usuário). Sem publish: auto-update fica fora (PRD §4).
+appId: com.migramail.app
+productName: MigraMail
+copyright: Copyright © 2026 Bruno K. Dal Castel
+directories:
+  output: dist
+  buildResources: build
+files:
+  - out/**
+  - package.json
+extraResources:
+  # imapsync.exe + LICENSE.txt, postos em vendor/ pelo scripts/fetch-imapsync.ts
+  - from: vendor/imapsync/
+    to: imapsync/
+    filter:
+      - imapsync.exe
+      - LICENSE.txt
+  - from: NOTICE
+    to: imapsync/NOTICE
+  - from: NOTICE
+    to: NOTICE
+  - from: THIRD_PARTY_LICENSES.md
+    to: THIRD_PARTY_LICENSES.md
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+nsis:
+  # sem espaços: o mesmo nome vai para a Release do GitHub
+  artifactName: MigraMail-Setup-${version}.${ext}
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  license: NOTICE
+# Fuses do Electron: o app empacotado não vira um Node genérico nem aceita depurador
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  enableNodeCliInspectArguments: false
+  enableEmbeddedAsarIntegrityValidation: true
+  onlyLoadAppFromAsar: true
+  enableCookieEncryption: true

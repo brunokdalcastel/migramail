@@ -1,0 +1,4 @@
+host1,user1,password1,host2,user2,password2,extra
+imap.gmail.com,joão@cliente.com.br,"se,nha",outlook.office365.com,joao@cliente.com.br,app-pass,--subfolder2 Migrado
+mail.antigo.com.br:143,maria@cliente.com.br,,outlook.office365.com,maria@cliente.com.br,,
+linha quebrada,sem,colunas

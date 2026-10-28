@@ -1,0 +1,8 @@
+node_modules/
+out/
+dist/
+*.pid
+*.log
+research/
+vendor/imapsync/*.exe
+.demo/
