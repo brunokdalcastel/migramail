@@ -161,49 +161,34 @@ describe('splitArgs', () => {
 })
 
 describe('checkExtraArgs', () => {
-  it('recusa senha na linha de comando e opções do app', () => {
-    expect(checkExtraArgs(['--password1', 'x']).errors).toHaveLength(1)
-    expect(checkExtraArgs(['--password2=x']).errors).toHaveLength(1)
-    expect(checkExtraArgs(['-PASSWORD1', 'x']).errors).toHaveLength(1)
+  it.each([
+    '--debugen',
+    '--showpassword --debugimap',
+    '+debugenv',
+    '-debugenv',
+    '--oauthrefreshcmd1 marker',
+    '--regexmess marker',
+    '--oauthaccesstoken1 FAKE',
+    '--password1 FAKE',
+    '--passfile1 a.txt',
+    '--host2 other.test',
+    '--delete2folders',
+    '--delete1',
+    '--sslargs1 SSL_verify_mode=0',
+    '--dry',
+    '--no-modulesversion',
+    '--folder --debugenv',
+    '--maxage=abc',
+    '--maxage=-1',
+    '--folder "unterminated',
+  ])('recusa %s', (s) => {
+    expect(checkExtraArgs(splitArgs(s)).errors.length).toBeGreaterThan(0)
+  })
+  it('aceita opções completas de dados e valores com espaços', () => {
     expect(
-      checkExtraArgs(['--pidfile', 'a', '--logdir', 'b', '--logfile', 'c']).errors,
-    ).toHaveLength(3)
-  })
-
-  it('recusa opções que poriam a senha no log (testado no imapsync 2.314)', () => {
-    expect(checkExtraArgs(['--showpasswords']).errors).toHaveLength(1)
-    expect(checkExtraArgs(['--debugenv']).errors).toHaveLength(1)
-    expect(checkExtraArgs(['--DebugEnv']).errors).toHaveLength(1)
-    expect(checkExtraArgs(['--noshowpasswords', '--nodebugenv']).errors).toEqual([])
-  })
-
-  it('avisa que a depuração grava o conteúdo das mensagens', () => {
-    const { errors, warnings } = checkExtraArgs(
-      splitArgs('--debugimap --debugimap1 --debugimap2 --debugcontent'),
-    )
-    expect(errors).toEqual([])
-    expect(warnings).toHaveLength(4)
-  })
-
-  it('avisa de opções perigosas', () => {
-    const { errors, warnings } = checkExtraArgs([
-      '--delete1',
-      '--delete2',
-      '--delete1emptyfolders',
-      '--sslargs1',
-      'SSL_verify_mode=0',
-      '--nossl2',
-    ])
-    expect(errors).toEqual([])
-    expect(warnings).toHaveLength(5)
-  })
-
-  it('não reclama de opções comuns', () => {
-    expect(
-      checkExtraArgs(splitArgs('--nofoldersizes --maxlinelength 10000 --passfile1 a.txt')),
-    ).toEqual({
-      errors: [],
-      warnings: [],
-    })
+      checkExtraArgs(
+        splitArgs('--nofoldersizes --maxlinelength 10000 --folder "A B" --exclude=Trash'),
+      ),
+    ).toEqual({ errors: [], warnings: [] })
   })
 })

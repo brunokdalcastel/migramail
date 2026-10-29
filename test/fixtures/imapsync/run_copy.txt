@@ -4,14 +4,14 @@ Transfer started at Monday 26 October 2026-10-26 21:31:36 -0300
 PID is 10444 my PPID is unknown under MSWin32 (too complicated)
 No log file because of option --nolog
 Load is unknown on 16 cores
-Real user id is Bruno K. Dal Castel (uid 0)
-Effective user id is Bruno K. Dal Castel (euid 0)
+Real user id is Demo User (uid 0)
+Effective user id is Demo User (euid 0)
 $RCSfile: imapsync,v $ $Revision: 2.314 $ $Date: 2025/09/23 16:55:17 $ 
 Command line used, run by perl.exe:
 C:\Tools\imapsync\imapsync_2.314\imapsync.exe --host1 test1.lamiral.info --user1 test1 --password1 MASKED --host2 test2.lamiral.info --user2 test2 --password2 MASKED --nolog --pidfile none_gui_test.pid --no-modulesversion --folder INBOX.Urlaub --folder Borrador --subfolder2 gui_probe_bruno
-Current directory is C:/Users/Bruno K. Dal Castel/imapsync-gui/research
-Temp directory is C:\Users\Bruno K. Dal Castel/tmp ( to change it use --tmpdir dirpath )
-Creating temp directory C:\Users\Bruno K. Dal Castel/tmp
+Current directory is C:/Users/Demo User/imapsync-gui/research
+Temp directory is C:\Users\Demo User/tmp ( to change it use --tmpdir dirpath )
+Creating temp directory C:\Users\Demo User/tmp
 kill -QUIT 10444 # special behavior: call to sub catch_exit
 kill -TERM 10444 # special behavior: call to sub catch_exit
 kill -INT 10444 # special behavior: call to sub catch_reconnect
@@ -22,10 +22,10 @@ PID file is none_gui_test.pid ( to change it, use --pidfile filepath ; to avoid 
 Writing my PID 10444 in none_gui_test.pid
 Info: will resync flags for already transferred messages. Use --noresyncflags to not resync flags.
 Host1: probing ssl on port 993 ( use --nosslcheck to avoid this ssl probe ) 
-Probing imap ssl on host test1.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Probing imap ssl on host test1.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host1: sslcheck detected open ssl port 993 so turning ssl on (use --nossl1 --notls1 to turn off SSL and TLS wizardry)
 Host2: probing ssl on port 993 ( use --nosslcheck to avoid this ssl probe ) 
-Probing imap ssl on host test2.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Probing imap ssl on host test2.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host2: sslcheck detected open ssl port 993 so turning ssl on (use --nossl2 --notls2 to turn off SSL and TLS wizardry)
 SSL debug mode level is --debugssl 1 (can be set from 0 meaning no debug to 4 meaning max debug)
 Host1: SSL default mode is like --sslargs1 "SSL_verify_mode=0", meaning for host1 SSL_VERIFY_NONE, ie, do not check the server certificate.
@@ -42,13 +42,13 @@ Host2: imap connection keepalive is on on host2. Use --nokeepalive2 to disable i
 Host1: IMAP server [test1.lamiral.info] port [993] user [test1]
 Host2: IMAP server [test2.lamiral.info] port [993] user [test2]
 Host1: connecting and login on host1 [test1.lamiral.info] port [993] with user [test1]
-Host1 IP address: 91.121.221.224 Local IP address: 192.168.1.99
-Host1 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Host1 IP address: 91.121.221.224 Local IP address: 192.0.2.10
+Host1 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host1 capability before authentication: IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN AUTH
 Host1: success login on [test1.lamiral.info] with user [test1] auth [LOGIN] or [LOGIN]
 Host2: connecting and login on host2 [test2.lamiral.info] port [993] with user [test2]
-Host2 IP address: 91.121.221.224 Local IP address: 192.168.1.99
-Host2 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Host2 IP address: 91.121.221.224 Local IP address: 192.0.2.10
+Host2 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host2 capability before authentication: IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN AUTH
 Host2: success login on [test2.lamiral.info] with user [test2] auth [LOGIN] or [LOGIN]
 Host1: state Authenticated
@@ -102,33 +102,33 @@ X is the imap foldername you have to use in command line options and
 Y is the utf8 output just printed for convenience, to recognize it.
 
 Host1: folders list (first the raw imap format then the [X] = [Y]):
-* LIST (\HasChildren \UnMarked) "." init
-* LIST (\HasNoChildren) "." init.bigmail
-* LIST (\HasNoChildren) "." init.&ZTZO9nux-
-* LIST (\HasNoChildren \Junk) "." Junk
-* LIST (\HasNoChildren) "." "Gesendete Objekte"
-* LIST (\HasNoChildren) "." "Gel&APY-schte Objekte"
-* LIST (\HasNoChildren) "." Enviado
-* LIST (\HasNoChildren) "." Entw&APw-rfe
-* LIST (\HasChildren \Drafts) "." Drafts
-* LIST (\HasNoChildren) "." Drafts.ADA
-* LIST (\HasNoChildren) "." "Deleted Messages"
-* LIST (\HasChildren) "." BACKUP
-* LIST (\HasChildren \UnMarked) "." BACKUP.test1_lamiral_info
-* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.INBOX
-* LIST (\HasNoChildren) "." "BACKUP.test1_lamiral_info.Correo no deseado"
-* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.Borrador
-* LIST (\HasNoChildren) "." Archive
-* LIST (\HasNoChildren) "." Archiv
-* LIST (\HasNoChildren \UnMarked) "." "Correo no deseado"
-* LIST (\HasNoChildren \UnMarked) "." Borrador
-* LIST (\HasChildren) "." INBOX.gesicherte_Mails
-* LIST (\HasNoChildren) "." INBOX.gesicherte_Mails.Amazon
-* LIST (\HasNoChildren) "." INBOX.gesicherte_Mails.ADAC
-* LIST (\HasNoChildren) "." INBOX.Urlaub
-* LIST (\HasNoChildren) "." INBOX.Rechnungen
-* LIST (\HasChildren) "." INBOX
-11 OK List completed (0.001 + 0.000 secs).
+* LIST (\HasChildren \UnMarked) "." init
+* LIST (\HasNoChildren) "." init.bigmail
+* LIST (\HasNoChildren) "." init.&ZTZO9nux-
+* LIST (\HasNoChildren \Junk) "." Junk
+* LIST (\HasNoChildren) "." "Gesendete Objekte"
+* LIST (\HasNoChildren) "." "Gel&APY-schte Objekte"
+* LIST (\HasNoChildren) "." Enviado
+* LIST (\HasNoChildren) "." Entw&APw-rfe
+* LIST (\HasChildren \Drafts) "." Drafts
+* LIST (\HasNoChildren) "." Drafts.ADA
+* LIST (\HasNoChildren) "." "Deleted Messages"
+* LIST (\HasChildren) "." BACKUP
+* LIST (\HasChildren \UnMarked) "." BACKUP.test1_lamiral_info
+* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.INBOX
+* LIST (\HasNoChildren) "." "BACKUP.test1_lamiral_info.Correo no deseado"
+* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.Borrador
+* LIST (\HasNoChildren) "." Archive
+* LIST (\HasNoChildren) "." Archiv
+* LIST (\HasNoChildren \UnMarked) "." "Correo no deseado"
+* LIST (\HasNoChildren \UnMarked) "." Borrador
+* LIST (\HasChildren) "." INBOX.gesicherte_Mails
+* LIST (\HasNoChildren) "." INBOX.gesicherte_Mails.Amazon
+* LIST (\HasNoChildren) "." INBOX.gesicherte_Mails.ADAC
+* LIST (\HasNoChildren) "." INBOX.Urlaub
+* LIST (\HasNoChildren) "." INBOX.Rechnungen
+* LIST (\HasChildren) "." INBOX
+11 OK List completed (0.001 + 0.000 secs).
 
 [Archiv]
 [Archive]
@@ -158,56 +158,56 @@ Host1: folders list (first the raw imap format then the [X] = [Y]):
 [init.bigmail]
 
 Host2: folders list (first the raw imap format then the [X] = [Y]):
-* LIST (\HasChildren) "." test1
-* LIST (\HasNoChildren) "." "test1.Gel&APY-schte Objekte"
-* LIST (\HasNoChildren) "." test1.Enviado
-* LIST (\HasNoChildren) "." test1.Entw&APw-rfe
-* LIST (\HasChildren) "." test1.Drafts
-* LIST (\HasNoChildren) "." test1.Drafts.ADA
-* LIST (\HasNoChildren) "." "test1.Deleted Messages"
-* LIST (\HasNoChildren) "." "test1.Correo no deseado"
-* LIST (\HasNoChildren) "." test1.Borrador
-* LIST (\HasNoChildren) "." test1.BACKUP
-* LIST (\HasNoChildren) "." test1.Archive
-* LIST (\HasNoChildren) "." test1.Archiv
-* LIST (\HasNoChildren) "." "Posta inviata"
-* LIST (\HasNoChildren) "." "Posta indesiderata"
-* LIST (\HasNoChildren) "." "Posta in uscita"
-* LIST (\HasNoChildren) "." "Posta eliminata"
-* LIST (\HasNoChildren) "." Note
-* LIST (\HasNoChildren) "." Journal
-* LIST (\HasNoChildren) "." Contatti
-* LIST (\HasChildren) "." Calendario
-* LIST (\HasNoChildren) "." Calendario.Compleanni
-* LIST (\HasNoChildren) "." Bozze
-* LIST (\HasNoChildren) "." Attivit&AOA-
-* LIST (\HasChildren \UnMarked) "." BACKUP
-* LIST (\HasChildren \UnMarked) "." BACKUP.test1_lamiral_info
-* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.INBOX
-* LIST (\HasNoChildren) "." "BACKUP.test1_lamiral_info.Correo no deseado"
-* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.Borrador
-* LIST (\HasNoChildren) "." "Gesendete Objekte"
-* LIST (\HasNoChildren) "." "Gel&APY-schte Objekte"
-* LIST (\HasNoChildren \UnMarked) "." Entw&APw-rfe
-* LIST (\HasChildren \Drafts) "." Drafts
-* LIST (\HasNoChildren \UnMarked) "." Drafts.ADA
-* LIST (\HasNoChildren) "." "Deleted Messages"
-* LIST (\HasNoChildren) "." Archive
-* LIST (\HasNoChildren \UnMarked) "." Archiv
-* LIST (\HasNoChildren \UnMarked) "." Enviado
-* LIST (\HasNoChildren \UnMarked) "." "Correo no deseado"
-* LIST (\HasNoChildren \UnMarked) "." Borrador
-* LIST (\HasChildren \UnMarked) "." init
-* LIST (\HasNoChildren) "." init.bigmail
-* LIST (\HasNoChildren) "." init.&ZTZO9nux-
-* LIST (\HasNoChildren \Junk) "." Junk
-* LIST (\HasChildren \UnMarked) "." INBOX.gesicherte_Mails
-* LIST (\HasNoChildren \UnMarked) "." INBOX.gesicherte_Mails.Amazon
-* LIST (\HasNoChildren \UnMarked) "." INBOX.gesicherte_Mails.ADAC
-* LIST (\HasNoChildren \UnMarked) "." INBOX.Urlaub
-* LIST (\HasNoChildren \UnMarked) "." INBOX.Rechnungen
-* LIST (\HasChildren) "." INBOX
-9 OK List completed (0.002 + 0.000 + 0.001 secs).
+* LIST (\HasChildren) "." test1
+* LIST (\HasNoChildren) "." "test1.Gel&APY-schte Objekte"
+* LIST (\HasNoChildren) "." test1.Enviado
+* LIST (\HasNoChildren) "." test1.Entw&APw-rfe
+* LIST (\HasChildren) "." test1.Drafts
+* LIST (\HasNoChildren) "." test1.Drafts.ADA
+* LIST (\HasNoChildren) "." "test1.Deleted Messages"
+* LIST (\HasNoChildren) "." "test1.Correo no deseado"
+* LIST (\HasNoChildren) "." test1.Borrador
+* LIST (\HasNoChildren) "." test1.BACKUP
+* LIST (\HasNoChildren) "." test1.Archive
+* LIST (\HasNoChildren) "." test1.Archiv
+* LIST (\HasNoChildren) "." "Posta inviata"
+* LIST (\HasNoChildren) "." "Posta indesiderata"
+* LIST (\HasNoChildren) "." "Posta in uscita"
+* LIST (\HasNoChildren) "." "Posta eliminata"
+* LIST (\HasNoChildren) "." Note
+* LIST (\HasNoChildren) "." Journal
+* LIST (\HasNoChildren) "." Contatti
+* LIST (\HasChildren) "." Calendario
+* LIST (\HasNoChildren) "." Calendario.Compleanni
+* LIST (\HasNoChildren) "." Bozze
+* LIST (\HasNoChildren) "." Attivit&AOA-
+* LIST (\HasChildren \UnMarked) "." BACKUP
+* LIST (\HasChildren \UnMarked) "." BACKUP.test1_lamiral_info
+* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.INBOX
+* LIST (\HasNoChildren) "." "BACKUP.test1_lamiral_info.Correo no deseado"
+* LIST (\HasNoChildren) "." BACKUP.test1_lamiral_info.Borrador
+* LIST (\HasNoChildren) "." "Gesendete Objekte"
+* LIST (\HasNoChildren) "." "Gel&APY-schte Objekte"
+* LIST (\HasNoChildren \UnMarked) "." Entw&APw-rfe
+* LIST (\HasChildren \Drafts) "." Drafts
+* LIST (\HasNoChildren \UnMarked) "." Drafts.ADA
+* LIST (\HasNoChildren) "." "Deleted Messages"
+* LIST (\HasNoChildren) "." Archive
+* LIST (\HasNoChildren \UnMarked) "." Archiv
+* LIST (\HasNoChildren \UnMarked) "." Enviado
+* LIST (\HasNoChildren \UnMarked) "." "Correo no deseado"
+* LIST (\HasNoChildren \UnMarked) "." Borrador
+* LIST (\HasChildren \UnMarked) "." init
+* LIST (\HasNoChildren) "." init.bigmail
+* LIST (\HasNoChildren) "." init.&ZTZO9nux-
+* LIST (\HasNoChildren \Junk) "." Junk
+* LIST (\HasChildren \UnMarked) "." INBOX.gesicherte_Mails
+* LIST (\HasNoChildren \UnMarked) "." INBOX.gesicherte_Mails.Amazon
+* LIST (\HasNoChildren \UnMarked) "." INBOX.gesicherte_Mails.ADAC
+* LIST (\HasNoChildren \UnMarked) "." INBOX.Urlaub
+* LIST (\HasNoChildren \UnMarked) "." INBOX.Rechnungen
+* LIST (\HasChildren) "." INBOX
+9 OK List completed (0.002 + 0.000 + 0.001 secs).
 
 [Archiv]
 [Archive]

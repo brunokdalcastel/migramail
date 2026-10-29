@@ -6,3 +6,12 @@ dist/
 research/
 vendor/imapsync/*.exe
 .demo/
+
+.env
+.env.*
+!.env.example
+secrets.json
+accounts.json
+profiles.json
+/imports/
+/.test-temp/

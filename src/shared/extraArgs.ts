@@ -22,57 +22,68 @@ export function splitArgs(s: string): string[] {
     }
   }
   if (hasToken) tokens.push(current)
+  if (inQuotes) tokens.push('--invalid-quoting')
   return tokens
 }
 
-/** Nome da opção sem traços, sem `=valor` e em minúsculas (`--Password1=x` → `password1`). */
-function optionName(token: string): string | null {
-  const m = /^--?([^=]+)/.exec(token)
-  return m?.[1] ? m[1].toLowerCase() : null
+/** Apenas opções de dados: nunca comandos, credenciais, destino, modo ou exclusões. */
+const VALUES: Record<string, 'text' | 'int'> = {
+  subfolder2: 'text',
+  folder: 'text',
+  folderrec: 'text',
+  folderfirst: 'text',
+  folderlast: 'text',
+  exclude: 'text',
+  f1f2: 'text',
+  maxlinelength: 'int',
+  maxsize: 'int',
+  minsize: 'int',
+  maxage: 'int',
+  minage: 'int',
+  maxbytespersecond: 'int',
+  errorsmax: 'int',
 }
+const FLAGS = new Set([
+  'nofoldersizes',
+  'foldersizes',
+  'automap',
+  'noautomap',
+  'justfolders',
+  'syncinternaldates',
+  'nosyncinternaldates',
+  'useuid',
+  'nosyncflags',
+  'noresyncflags',
+  'noshowpasswords',
+  'nodebugenv',
+])
 
-const FORBIDDEN: Record<string, string> = {
-  password1:
-    'Não passe --password1: a senha ficaria visível na linha de comando. Use o campo de senha.',
-  password2:
-    'Não passe --password2: a senha ficaria visível na linha de comando. Use o campo de senha.',
-  // testado no imapsync 2.314: --debugenv lista IMAPSYNC_PASSWORD1/2 e --showpasswords tira a
-  // máscara do LOGIN no rastro do --debugimap; os dois iriam para o log em disco
-  showpasswords: 'Não use --showpasswords: a senha apareceria na saída e no arquivo de log.',
-  debugenv:
-    'Não use --debugenv: ele imprime as variáveis de ambiente, que levam as senhas, e elas iriam para o arquivo de log.',
-  pidfile: '--pidfile é controlado pelo app.',
-  logdir: '--logdir é controlado pelo app.',
-  logfile: '--logfile é controlado pelo app.',
-}
-
-const RISKY: Record<string, string> = {
-  delete1: '--delete1 apaga as mensagens da origem depois de copiar.',
-  delete2: '--delete2 apaga do destino as mensagens que não existem na origem.',
-  delete1emptyfolders: '--delete1emptyfolders apaga pastas vazias da origem.',
-  debugimap:
-    '--debugimap grava todo o tráfego IMAP no log, com o conteúdo das mensagens (a senha continua mascarada).',
-  debugimap1:
-    '--debugimap1 grava todo o tráfego IMAP da origem no log, com o conteúdo das mensagens.',
-  debugimap2:
-    '--debugimap2 grava todo o tráfego IMAP do destino no log, com o conteúdo das mensagens.',
-  debugcontent: '--debugcontent grava o conteúdo das mensagens no log.',
-}
-
-/** Erros impedem o job; avisos só aparecem na interface. */
 export function checkExtraArgs(tokens: string[]): { errors: string[]; warnings: string[] } {
   const errors = new Set<string>()
-  const warnings = new Set<string>()
-  for (const token of tokens) {
-    const name = optionName(token)
-    if (name && FORBIDDEN[name]) errors.add(FORBIDDEN[name])
-    if (name && RISKY[name]) warnings.add(RISKY[name])
-    if (name && /^nossl[12]?$/.test(name)) {
-      warnings.add(`--${name} desliga a criptografia: senha e mensagens trafegam em texto puro.`)
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i]!
+    const match = /^--([a-z][a-z0-9]*)(?:=(.*))?$/.exec(token)
+    const name = match?.[1]
+    if (!name || (!Object.hasOwn(VALUES, name) && !FLAGS.has(name))) {
+      errors.add(
+        'Argumento extra não permitido. Use apenas opções documentadas, com nome completo e dois traços.',
+      )
+      continue
     }
-    if (/SSL_verify_mode\s*=\s*0/i.test(token)) {
-      warnings.add('SSL_verify_mode=0 desliga a validação do certificado do servidor (inseguro).')
+    const inline = match[2]
+    if (FLAGS.has(name)) {
+      if (inline !== undefined) errors.add('Opção sem valor recebeu um valor.')
+      continue
+    }
+    const value = inline ?? tokens[++i]
+    if (value === undefined || !value || /^[+-]/.test(value) || /[\r\n\0]/.test(value)) {
+      errors.add('Argumento extra exige um valor válido que não comece com traço ou +.')
+    } else if (
+      VALUES[name] === 'int' &&
+      (!/^\d+$/.test(value) || !Number.isSafeInteger(Number(value)) || Number(value) < 1)
+    ) {
+      errors.add('Argumento extra exige um inteiro positivo seguro.')
     }
   }
-  return { errors: [...errors], warnings: [...warnings] }
+  return { errors: [...errors], warnings: [] }
 }

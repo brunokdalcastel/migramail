@@ -1,3 +1,4 @@
+import { getSettings } from '../settings'
 import { existsSync } from 'node:fs'
 import { shell } from 'electron'
 import { applyProfile, type JobSnapshot } from '@shared/model'
@@ -77,6 +78,14 @@ export function registerJobsHandlers(): void {
     const typed = { password1, password2 }
     const secrets = resolvePasswords(account, typed)
 
+    // mesmo perfil nos dois lados entra uma vez só
+    const profileIds = new Set([account.source.profileId, account.dest.profileId])
+    const profileExtraArgs = profiles
+      .filter((p) => profileIds.has(p.id) && p.extraArgs.trim())
+      .map((p) => p.extraArgs)
+    const tokens = [...profileExtraArgs, account.options.extraArgs].flatMap(splitArgs)
+    const checked = checkExtraArgs(tokens)
+    if (checked.errors.length) throw new UserError(checked.errors.join(' '))
     const warnings: string[] = []
     try {
       rememberPasswords(account, typed)
@@ -86,15 +95,11 @@ export function registerJobsHandlers(): void {
       else throw err
     }
 
-    // mesmo perfil nos dois lados entra uma vez só
-    const profileIds = new Set([account.source.profileId, account.dest.profileId])
-    const profileExtraArgs = profiles
-      .filter((p) => profileIds.has(p.id) && p.extraArgs.trim())
-      .map((p) => p.extraArgs)
-    const tokens = [...profileExtraArgs, account.options.extraArgs].flatMap(splitArgs)
     warnings.push(...checkExtraArgs(tokens).warnings)
 
     const jobs = getJobManager()
+    // Reconcile with persisted settings even if a listener missed an update.
+    jobs.setParallelism(getSettings().parallelism)
     const jobId = jobs.enqueue(account, mode, secrets, profileExtraArgs, scope)
     for (const { host, count } of jobs.concurrencyWarnings()) {
       warnings.push(

@@ -110,3 +110,7 @@ Base: leitura do código-fonte do imapsync 2.314 (`imapsync.pl`) e execuções r
 - [ ] Gmail/M365 sem OAuth2 dependem de senha de app / IMAP básico liberado. Fica documentado na tela de perfis; OAuth2 interativo é candidato a versão 2.
 - [ ] A % por bytes é estimativa (pasta com mesmo tamanho nos dois lados não garante mensagens iguais). A % por mensagens é a referência; a de bytes vai com o rótulo "estimado".
 - [ ] Parar no meio de um APPEND grande: assumido seguro (servidor descarta APPEND incompleto), validar num teste manual.
+
+## Manutenção de segurança — 29/10/2026
+
+A política atual substitui a antiga lista de proibições por opções de dados explicitamente permitidas (ver README). Comandos Perl/OAuth, tokens, arquivos de senha, depuração, exclusões e sobrescrita de servidor/modo são recusados. A validação ocorre no CSV, antes de salvar contas/perfis e antes de executar. Electron 44.10.0, Vite 7.3.7 e Zod 4.6.7 corrigem os alertas encontrados; atualização de segurança sem novas bibliotecas.

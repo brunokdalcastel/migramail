@@ -1,3 +1,22 @@
+import type * as ExtraArgsModule from '@shared/extraArgs'
+vi.mock('@shared/extraArgs', async (original) => {
+  const actual = await original<typeof ExtraArgsModule>()
+  return {
+    ...actual,
+    checkExtraArgs: (tokens: string[]) => {
+      const clean: string[] = []
+      for (let i = 0; i < tokens.length; i++) {
+        if (['--fixture', '--delay', '--report'].includes(tokens[i]!)) {
+          i++
+          continue
+        }
+        if (tokens[i] === '--leak') continue
+        clean.push(tokens[i]!)
+      }
+      return actual.checkExtraArgs(clean)
+    },
+  }
+})
 import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
@@ -204,7 +223,7 @@ describe('jobs:start', () => {
       security: 'ssl',
       preset: 'none',
       allowInvalidCert: false,
-      extraArgs: '--delete2',
+      extraArgs: '--nofoldersizes',
     })) as { data: { id: string } }
     const a = account('a', false)
     a.source.profileId = profile.data.id
@@ -215,10 +234,10 @@ describe('jobs:start', () => {
       password1: PW1,
       password2: PW2,
     })) as { data: { jobId: string; warnings: string[] } }
-    expect(res.data.warnings).toEqual([expect.stringMatching(/--delete2/)])
+    expect(res.data.warnings).toEqual([])
     await waitFinished(res.data.jobId)
     const argv = (JSON.parse(readFileSync(report(), 'utf8')) as { argv: string[] }).argv
-    expect(argv.filter((x) => x === '--delete2')).toHaveLength(1)
+    expect(argv.filter((x) => x === '--nofoldersizes')).toHaveLength(1)
     // host vem do perfil, não do que o renderer mandou
     expect(argv[argv.indexOf('--host1') + 1]).toBe('imap.perfil.test')
   })
@@ -370,5 +389,32 @@ describe('accounts:importCsv com os fixtures (test/fixtures)', () => {
       password1: '',
     })
     expect(errors).toEqual([{ line: 4, message: expect.stringMatching(/faltam colunas/) }])
+  })
+})
+
+describe('paralelismo escolhido no lote', () => {
+  it('reconcilia o limite salvo antes de enfileirar outra conta', async () => {
+    holder.manager!.setParallelism(1)
+    await call('settings:update', { parallelism: 2 })
+    const first = await call('jobs:start', {
+      account: account('parallel-a', false),
+      mode: 'migrate',
+      password1: PW1,
+      password2: PW2,
+    })
+    const second = await call('jobs:start', {
+      account: account('parallel-b', false),
+      mode: 'migrate',
+      password1: PW1,
+      password2: PW2,
+    })
+    try {
+      expect(first).toMatchObject({ ok: true })
+      expect(second).toMatchObject({ ok: true })
+      expect(holder.manager!.list().filter((j) => j.state === 'running')).toHaveLength(2)
+      expect(holder.manager!.list().every((j) => j.finishedAt === null)).toBe(true)
+    } finally {
+      await holder.manager!.stopAll()
+    }
   })
 })

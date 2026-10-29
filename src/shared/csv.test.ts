@@ -8,7 +8,7 @@ describe('parseAccountsCsv', () => {
       '# comentário',
       'test1.lamiral.info;test1;secret1;test2.lamiral.info;test2;secret2;',
       '',
-      'a.com;u1;p1;b.com;u2;p2;--dry --nofoldersizes;',
+      'a.com;u1;p1;b.com;u2;p2;--nofoldersizes;',
     ].join('\n')
     const { rows, errors } = parseAccountsCsv(text)
     expect(errors).toEqual([])
@@ -22,7 +22,7 @@ describe('parseAccountsCsv', () => {
       extraArgs: '',
     })
     expect(rows[1]?.line).toBe(4)
-    expect(rows[1]?.extraArgs).toBe('--dry --nofoldersizes')
+    expect(rows[1]?.extraArgs).toBe('--nofoldersizes')
   })
 
   it('CSV com cabeçalho, vírgula, BOM, \\r\\n e aspas', () => {
@@ -111,5 +111,19 @@ describe('exportAccountsCsv', () => {
       password2: '',
       extraArgs: '--f1f2 "A=B"',
     })
+  })
+})
+
+describe('segurança do CSV', () => {
+  it.each([
+    '--oauthrefreshcmd1 marker',
+    '--oauthaccesstoken1 FAKE',
+    '--debugen',
+    '--host2 other.test',
+    '--delete2folders',
+  ])('recusa extra %s na importação', (extra) => {
+    const result = parseAccountsCsv('a.test;u;p;b.test;v;q;' + extra + ';')
+    expect(result.rows).toEqual([])
+    expect(result.errors).toHaveLength(1)
   })
 })

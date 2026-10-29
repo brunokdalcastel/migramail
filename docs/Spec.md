@@ -383,3 +383,7 @@ JobMode: z.enum(['login', 'sizes', 'dry', 'migrate'])
 - Copiar os padrões de `~/memora`: `src/shared/ipc.ts`, `src/main/ipc/register.ts`, `src/preload/index.ts`, `src/main/secrets.ts`, `src/main/settings.ts` (`writeFileAtomic`), `src/renderer/components/Chart.tsx`, `electron-builder.yml`, `scripts/release.ts`.
 - O parser é a peça central: toda linha nova reconhecida entra com teste usando uma saída real.
 - Nome "MigraMail" segue provisório (PRD §8); trocar só `productName`, `appId` e textos se o Bruno decidir outro.
+
+## Manutenção de segurança — 29/10/2026
+
+A política atual substitui a antiga lista de proibições por opções de dados explicitamente permitidas (ver README). Comandos Perl/OAuth, tokens, arquivos de senha, depuração, exclusões e sobrescrita de servidor/modo são recusados. A validação ocorre no CSV, antes de salvar contas/perfis e antes de executar. Electron 44.10.0, Vite 7.3.7 e Zod 4.6.7 corrigem os alertas encontrados; atualização de segurança sem novas bibliotecas.

@@ -1,6 +1,8 @@
 MigraMail — migração de caixas de e-mail IMAP para Windows
 Copyright (c) 2026 Bruno K. Dal Castel
 
+O código do MigraMail é distribuído sob a licença MIT (arquivo LICENSE).
+
 O MigraMail é uma interface gráfica para o imapsync. A cópia das mensagens é feita pelo
 imapsync 2.314, de Gilles Lamiral (https://imapsync.lamiral.info), que vai junto do programa
 em resources\imapsync\imapsync.exe, sem modificações. O MigraMail não é um produto oficial do

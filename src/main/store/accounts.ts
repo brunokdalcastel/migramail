@@ -1,3 +1,5 @@
+import { UserError } from '../errors'
+import { checkExtraArgs, splitArgs } from '@shared/extraArgs'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { app } from 'electron'
@@ -54,6 +56,10 @@ export function saveAccounts(state: SavedAccounts): void {
   const data = {
     single: state.single ? accountSchema.parse(state.single) : null,
     batch: state.batch.map((a) => accountSchema.parse(a)),
+  }
+  for (const a of data.single ? [data.single, ...data.batch] : data.batch) {
+    const { errors } = checkExtraArgs(splitArgs(a.options.extraArgs))
+    if (errors.length) throw new UserError(errors.join(' '))
   }
   writeFileAtomic(accountsPath(), JSON.stringify(data, null, 2))
 }

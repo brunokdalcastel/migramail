@@ -4,14 +4,14 @@ Transfer started at Monday 26 October 2026-10-26 21:32:31 -0300
 PID is 28280 my PPID is unknown under MSWin32 (too complicated)
 No log file because of option --nolog
 Load is unknown on 16 cores
-Real user id is Bruno K. Dal Castel (uid 0)
-Effective user id is Bruno K. Dal Castel (euid 0)
+Real user id is Demo User (uid 0)
+Effective user id is Demo User (euid 0)
 $RCSfile: imapsync,v $ $Revision: 2.314 $ $Date: 2025/09/23 16:55:17 $ 
 Command line used, run by perl.exe:
 C:\Tools\imapsync\imapsync_2.314\imapsync.exe --host1 test1.lamiral.info --user1 test1 --password1 MASKED --host2 test2.lamiral.info --user2 test2 --password2 MASKED --nolog --pidfile x.pid --justlogin
-Current directory is C:/Users/Bruno K. Dal Castel/imapsync-gui/research
-Temp directory is C:\Users\Bruno K. Dal Castel/tmp ( to change it use --tmpdir dirpath )
-Creating temp directory C:\Users\Bruno K. Dal Castel/tmp
+Current directory is C:/Users/Demo User/imapsync-gui/research
+Temp directory is C:\Users\Demo User/tmp ( to change it use --tmpdir dirpath )
+Creating temp directory C:\Users\Demo User/tmp
 kill -QUIT 28280 # special behavior: call to sub catch_exit
 kill -TERM 28280 # special behavior: call to sub catch_exit
 kill -INT 28280 # special behavior: call to sub catch_reconnect
@@ -55,10 +55,10 @@ Unicode::String      2.10
 
 Info: will resync flags for already transferred messages. Use --noresyncflags to not resync flags.
 Host1: probing ssl on port 993 ( use --nosslcheck to avoid this ssl probe ) 
-Probing imap ssl on host test1.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Probing imap ssl on host test1.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host1: sslcheck detected open ssl port 993 so turning ssl on (use --nossl1 --notls1 to turn off SSL and TLS wizardry)
 Host2: probing ssl on port 993 ( use --nosslcheck to avoid this ssl probe ) 
-Probing imap ssl on host test2.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Probing imap ssl on host test2.lamiral.info port 993, got banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host2: sslcheck detected open ssl port 993 so turning ssl on (use --nossl2 --notls2 to turn off SSL and TLS wizardry)
 SSL debug mode level is --debugssl 1 (can be set from 0 meaning no debug to 4 meaning max debug)
 Host1: SSL default mode is like --sslargs1 "SSL_verify_mode=0", meaning for host1 SSL_VERIFY_NONE, ie, do not check the server certificate.
@@ -75,15 +75,15 @@ Host2: imap connection keepalive is on on host2. Use --nokeepalive2 to disable i
 Host1: IMAP server [test1.lamiral.info] port [993] user [test1]
 Host2: IMAP server [test2.lamiral.info] port [993] user [test2]
 Host1: connecting and login on host1 [test1.lamiral.info] port [993] with user [test1]
-Host1 IP address: 91.121.221.224 Local IP address: 192.168.1.99
-Host1 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Host1 IP address: 91.121.221.224 Local IP address: 192.0.2.10
+Host1 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host1 capability before authentication: IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN AUTH
 Host1 info: authmech [LOGIN] user [test1] authuser [] IsUnconnected []
 Host1 failure: Error login on [test1.lamiral.info] with user [test1] auth [LOGIN]: 2 NO [AUTHENTICATIONFAILED] Authentication failed.
 Host1: failed login on [test1.lamiral.info] with user [test1] auth [LOGIN]
 Host2: connecting and login on host2 [test2.lamiral.info] port [993] with user [test2]
-Host2 IP address: 91.121.221.224 Local IP address: 192.168.1.99
-Host2 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
+Host2 IP address: 91.121.221.224 Local IP address: 192.0.2.10
+Host2 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host2 capability before authentication: IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN AUTH
 Host2: success login on [test2.lamiral.info] with user [test2] auth [LOGIN] or [LOGIN]
 ++++ Listing 1 errors encountered during the sync ( avoid this listing with --noerrorsdump ).

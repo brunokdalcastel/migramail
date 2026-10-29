@@ -1,6 +1,6 @@
 // Monta a linha de comando e o ambiente do imapsync.exe para um job. A senha nunca entra
 // nos argumentos: vai por IMAPSYNC_PASSWORD1/2. Sem electron: roda no Vitest.
-import { splitArgs } from '@shared/extraArgs'
+import { checkExtraArgs, splitArgs } from '@shared/extraArgs'
 import type { Account, Endpoint, JobMode, JobSecrets, Side } from '@shared/model'
 
 export { checkExtraArgs, splitArgs } from '@shared/extraArgs'
@@ -40,6 +40,9 @@ export function buildArgs(
   paths: JobFilePaths,
   profileExtraArgs: string[] = [],
 ): string[] {
+  const tokens = [...profileExtraArgs, account.options.extraArgs].flatMap(splitArgs)
+  const { errors } = checkExtraArgs(tokens)
+  if (errors.length) throw new Error(errors.join(' '))
   const o = account.options
   const args = [...endpointArgs(account.source, 1), ...endpointArgs(account.dest, 2)]
   args.push(...MODE_ARGS[mode])

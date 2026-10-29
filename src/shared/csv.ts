@@ -1,3 +1,4 @@
+import { checkExtraArgs, splitArgs } from './extraArgs'
 // Importação e exportação da lista de contas. Aceita o CSV com cabeçalho do app e o
 // file.txt oficial do imapsync (`host1;user1;senha1;host2;user2;senha2;extras;`).
 // Sem Node: main e renderer usam.
@@ -120,13 +121,19 @@ export function parseAccountsCsv(text: string): { rows: AccountDraft[]; errors: 
       return
     }
 
+    const extraArgs = (get('extra') ?? '').trim()
+    const checked = checkExtraArgs(splitArgs(extraArgs))
+    if (checked.errors.length) {
+      errors.push({ line: lineNo, message: checked.errors.join(' ') })
+      return
+    }
     rows.push({
       line: lineNo,
       source: { ...h1, user: u1 },
       dest: { ...h2, user: u2 },
       password1: get('password1') ?? '',
       password2: get('password2') ?? '',
-      extraArgs: (get('extra') ?? '').trim(),
+      extraArgs,
     })
   })
 
@@ -144,6 +151,10 @@ export function hostField(e: Account['source']): string {
 
 /** CSV com cabeçalho e a coluna de senha sempre vazia. */
 export function exportAccountsCsv(accounts: Account[]): string {
+  for (const a of accounts) {
+    const { errors } = checkExtraArgs(splitArgs(a.options.extraArgs))
+    if (errors.length) throw new Error('Exportação recusada: argumentos extras não permitidos.')
+  }
   const lines = [HEADER.join(',')]
   for (const a of accounts) {
     lines.push(

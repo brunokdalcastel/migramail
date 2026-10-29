@@ -1,27 +1,27 @@
-Here is imapsync 2.314 C:\Users\Bruno K. Dal Castel\imapsync-gui\vendor\imapsync\imapsync.exe on host nt, a MSWin32 system with 2.7/15.7 free GiB of RAM, 87.48% used by processes.
+Here is imapsync 2.314 C:\Users\Demo User\imapsync-gui\vendor\imapsync\imapsync.exe on host nt, a MSWin32 system with 2.7/15.7 free GiB of RAM, 87.48% used by processes.
 with Perl 5.40.2 and Mail::IMAPClient 3.43
 Transfer started at Tuesday 27 October 2026-10-27 08:39:34 -0300
 PID is 16760 my PPID is unknown under MSWin32 (too complicated)
-Log file is C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs/test1_20261027-083904_44ad6389.txt ( to change it, use --logfile path ; or use --nolog to turn off logging )
+Log file is C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs/test1_20261027-083904_44ad6389.txt ( to change it, use --logfile path ; or use --nolog to turn off logging )
 Load is unknown on 16 cores
-Real user id is Bruno K. Dal Castel (uid 0)
-Effective user id is Bruno K. Dal Castel (euid 0)
+Real user id is Demo User (uid 0)
+Effective user id is Demo User (euid 0)
 $RCSfile: imapsync,v $ $Revision: 2.314 $ $Date: 2025/09/23 16:55:17 $ 
 Command line used, run by perl.exe:
-C:\Users\Bruno K. Dal Castel\imapsync-gui\vendor\imapsync\imapsync.exe --host1 test1.lamiral.info --user1 test1 --port1 993 --ssl1 --sslargs1 SSL_verify_mode=1 --host2 test2.lamiral.info --user2 test2 --port2 993 --ssl2 --dry --automap --subfolder2 gui_probe_bruno_f5 --folder INBOX.Urlaub --folder Borrador --syncinternaldates --errorsmax 50 --no-modulesversion --pidfile C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid --logdir C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs --logfile test1_20261027-083904_44ad6389.txt
-Current directory is C:/Users/Bruno K. Dal Castel/imapsync-gui
-Temp directory is C:\Users\Bruno K. Dal Castel/tmp ( to change it use --tmpdir dirpath )
-Creating temp directory C:\Users\Bruno K. Dal Castel/tmp
+C:\Users\Demo User\imapsync-gui\vendor\imapsync\imapsync.exe --host1 test1.lamiral.info --user1 test1 --port1 993 --ssl1 --sslargs1 SSL_verify_mode=1 --host2 test2.lamiral.info --user2 test2 --port2 993 --ssl2 --dry --automap --subfolder2 gui_probe_bruno_f5 --folder INBOX.Urlaub --folder Borrador --syncinternaldates --errorsmax 50 --no-modulesversion --pidfile C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid --logdir C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs --logfile test1_20261027-083904_44ad6389.txt
+Current directory is C:/Users/Demo User/imapsync-gui
+Temp directory is C:\Users\Demo User/tmp ( to change it use --tmpdir dirpath )
+Creating temp directory C:\Users\Demo User/tmp
 kill -QUIT 16760 # special behavior: call to sub catch_exit
 kill -TERM 16760 # special behavior: call to sub catch_exit
 kill -INT 16760 # special behavior: call to sub catch_reconnect
 kill -HUP 16760 # special behavior: call to sub catch_print
 Logging to a logfile by default. To turn off logging, use --nolog
-Directory C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs is writable and readable and gointoable. Good.
-File C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid does not exist
-PID file is C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid ( to change it, use --pidfile filepath ; to avoid it use --pidfile "" )
-Writing my PID 16760 in C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid
-Writing also my logfile name in C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid : C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs/test1_20261027-083904_44ad6389.txt
+Directory C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs is writable and readable and gointoable. Good.
+File C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid does not exist
+PID file is C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid ( to change it, use --pidfile filepath ; to avoid it use --pidfile "" )
+Writing my PID 16760 in C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid
+Writing also my logfile name in C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid : C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs/test1_20261027-083904_44ad6389.txt
 Info: will resync flags for already transferred messages. Use --noresyncflags to not resync flags.
 SSL debug mode level is --debugssl 1 (can be set from 0 meaning no debug to 4 meaning max debug)
 Host1: SSL default mode is like --sslargs1 "SSL_verify_mode=0", meaning for host1 SSL_VERIFY_NONE, ie, do not check the server certificate.
@@ -38,12 +38,12 @@ Host2: imap connection keepalive is on on host2. Use --nokeepalive2 to disable i
 Host1: IMAP server [test1.lamiral.info] port [993] user [test1]
 Host2: IMAP server [test2.lamiral.info] port [993] user [test2]
 Host1: connecting and login on host1 [test1.lamiral.info] port [993] with user [test1]
-Host1 IP address: 91.121.221.224 Local IP address: 192.168.1.99
+Host1 IP address: 91.121.221.224 Local IP address: 192.0.2.10
 Host1 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host1 capability before authentication: IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN AUTH
 Host1: success login on [test1.lamiral.info] with user [test1] auth [LOGIN] or [LOGIN]
 Host2: connecting and login on host2 [test2.lamiral.info] port [993] with user [test2]
-Host2 IP address: 91.121.221.224 Local IP address: 192.168.1.99
+Host2 IP address: 91.121.221.224 Local IP address: 192.0.2.10
 Host2 banner: * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] Dovecot (Debian) ready.
 Host2 capability before authentication: IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN AUTH
 Host2: success login on [test2.lamiral.info] with user [test2] auth [LOGIN] or [LOGIN]
@@ -427,5 +427,5 @@ Detected 0 errors
 This imapsync is up to date. ( local 2.314 >= official 2.314 )( Use --noreleasecheck to avoid this release check. )
 Homepage: https://imapsync.lamiral.info/
 Exiting with return value 0 (EX_OK: successful termination) 0/50 nb_errors/max_errors PID 16760
-Removing pidfile C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid
-Log file is C:\Users\Bruno K. Dal Castel\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs/test1_20261027-083904_44ad6389.txt ( to change it, use --logfile filepath ; or use --nolog to turn off logging )
+Removing pidfile C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\run\44ad6389-a021-45e0-9d2c-aec75ecfb49b.pid
+Log file is C:\Users\Demo User\AppData\Local\Temp\claude\C--Users-Bruno-K--Dal-Castel\1abae2b9-b967-4ba6-a4c3-64aaf62c9cc1\scratchpad\ud\logs/test1_20261027-083904_44ad6389.txt ( to change it, use --logfile filepath ; or use --nolog to turn off logging )

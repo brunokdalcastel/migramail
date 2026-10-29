@@ -202,6 +202,14 @@ function BatchEditor({ initial }: { initial: Account[] }): React.JSX.Element {
     const warnings = new Set<string>()
     const errors: string[] = []
     let started = 0
+    try {
+      const settings = await invoke('settings:update', { parallelism })
+      useApp.getState().setSettings(settings)
+    } catch (err) {
+      setBusy(false)
+      fail(err as Error)
+      return
+    }
     for (const a of ready) {
       const pw = typed[a.id]
       try {

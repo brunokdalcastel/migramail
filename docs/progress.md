@@ -146,3 +146,15 @@
 ## 2026-10-27 · Senhas fora do log mesmo com argumentos extras
 - Testado com o exe real (`--justlogin` test1/test2): `--debugenv` imprime `IMAPSYNC_PASSWORD1/2`; `--showpasswords` + `--debugimap` grava `LOGIN <usuário> <senha>`; `--debugimap`, `--debug`, `--debugcontent` e `--showpasswords` sozinhos não mostraram a senha.
 - `checkExtraArgs`: `--showpasswords` e `--debugenv` viram erro (o job não inicia; vale para extras da conta, do perfil e do CSV, porque o `enqueue` confere); `--debugimap`, `--debugimap1/2` e `--debugcontent` viram aviso (conteúdo das mensagens no log). Testes 130/130.
+
+## Manutenção de segurança — 29/10/2026
+
+Lista permitida de argumentos com validação de nomes completos e valores. Bloqueio no CSV, armazenamento, exportação e execução. Removidos caminhos e identificadores pessoais das fixtures. Atualizados Electron, Vite e Zod; npm install/audit retornou zero vulnerabilidades. Novos testes de argumentos e CSV malicioso. Nenhum commit ou publicação realizado. A limpeza das fixtures não remove metadados do commit anterior; licença própria continua dependendo da escolha do autor.
+
+## Licença e paralelismo — 29/10/2026
+
+Adicionada MIT com autoria de Bruno K. Dal Castel, metadados npm, README e cópia no instalador. Antes de iniciar o lote, a interface aguarda a confirmação da configuração de paralelismo; jobs:start reconcilia o manager com o limite persistido. Regressões cobrem três processos simultâneos e reconciliação do limite por IPC. O relato de serialização no executável instalado ainda depende do app.log para confirmar a causa; não reproduzido no motor falso.
+
+## Verificação com motor real — 29/10/2026
+
+Executado scripts/diagnose-parallel.ts com imapsync 2.314 oficial e SHA-256 validado. Dois processos iniciados com 74 ms de diferença; ambos conectaram à origem aos ~43 s, autenticaram na origem aos ~44,5 s e no destino aos ~46 s, concluindo com código 0 aos ~48 s. Nenhuma mensagem copiada/excluída. Confirma paralelismo real no manager atualizado, sem reproduzir a serialização relatada na instalação anterior. Instalador Windows gerado com MIT e as correções; não implica teste de migração real nem reprodução do ambiente do usuário.

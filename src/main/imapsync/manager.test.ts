@@ -1,7 +1,26 @@
+import type * as ExtraArgsModule from '@shared/extraArgs'
+vi.mock('@shared/extraArgs', async (original) => {
+  const actual = await original<typeof ExtraArgsModule>()
+  return {
+    ...actual,
+    checkExtraArgs: (tokens: string[]) => {
+      const clean: string[] = []
+      for (let i = 0; i < tokens.length; i++) {
+        if (['--fixture', '--delay', '--report'].includes(tokens[i]!)) {
+          i++
+          continue
+        }
+        if (tokens[i] === '--leak') continue
+        clean.push(tokens[i]!)
+      }
+      return actual.checkExtraArgs(clean)
+    },
+  }
+})
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { describeExit } from '@shared/exitCodes'
 import { defaultMigrationOptions, type Account, type Endpoint } from '@shared/model'
 import { splitArgs } from './args'
@@ -231,12 +250,12 @@ describe('JobManager com exe falso', () => {
     const id = m.enqueue(a, 'migrate', SECRETS)
     expect(() => m.enqueue(a, 'migrate', SECRETS)).toThrow('Esta conta já está em andamento.')
     expect(() => m.enqueue(account('x', '--password1 abc'), 'migrate', SECRETS)).toThrow(
-      /--password1/,
+      /Argumento extra não permitido/,
     )
     // vale também para os extras do perfil
     expect(() =>
       m.enqueue(account('y', ''), 'migrate', SECRETS, ['--debugimap --showpasswords']),
-    ).toThrow(/--showpasswords/)
+    ).toThrow(/Argumento extra não permitido/)
     await waitAll(m, [id])
   })
 
@@ -327,5 +346,32 @@ describe('Job parado', () => {
     expect(job.status).toBe('stopped')
     expect(existsSync(parTemp)).toBe(false)
     expect(existsSync(other)).toBe(true)
+  })
+})
+
+describe('alteração do paralelismo durante o lote', () => {
+  it('inicia três processos antes de qualquer conta terminar', async () => {
+    const m = createManager(1)
+    const ids = ['simultanea-a', 'simultanea-b', 'simultanea-c'].map((id) =>
+      m.enqueue(
+        account(id, fakeArgs('run_copy.txt', '--delay 50')),
+        'migrate',
+        SECRETS,
+        [],
+        'batch',
+      ),
+    )
+    try {
+      expect(m.list().filter((j) => j.state === 'running')).toHaveLength(1)
+      expect(m.list().filter((j) => j.state === 'queued')).toHaveLength(2)
+      m.setParallelism(3)
+      const snapshots = m.list()
+      expect(snapshots.filter((j) => j.state === 'running')).toHaveLength(3)
+      expect(snapshots.filter((j) => j.state === 'queued')).toHaveLength(0)
+      expect(snapshots.every((j) => j.finishedAt === null)).toBe(true)
+      expect(new Set(snapshots.map((j) => j.id))).toEqual(new Set(ids))
+    } finally {
+      await m.stopAll()
+    }
   })
 })

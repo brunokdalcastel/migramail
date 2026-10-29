@@ -1,3 +1,4 @@
+import { checkExtraArgs, splitArgs } from '@shared/extraArgs'
 import { randomUUID } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
@@ -58,6 +59,8 @@ export function saveProfile(input: ProfileInput): ServerProfile {
     throw new UserError('Os perfis prontos não podem ser alterados. Crie um perfil novo.')
   }
   const profile = serverProfileSchema.parse({ ...input, id: input.id ?? randomUUID() })
+  const { errors } = checkExtraArgs(splitArgs(profile.extraArgs))
+  if (errors.length) throw new UserError(errors.join(' '))
   const name = profile.name.toLocaleLowerCase('pt-BR')
   if (
     listProfiles().some((p) => p.id !== profile.id && p.name.toLocaleLowerCase('pt-BR') === name)

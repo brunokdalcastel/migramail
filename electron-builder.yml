@@ -9,6 +9,8 @@ files:
   - out/**
   - package.json
 extraResources:
+  - from: LICENSE
+    to: LICENSE.migramail.txt
   # imapsync.exe + LICENSE.txt, postos em vendor/ pelo scripts/fetch-imapsync.ts
   - from: vendor/imapsync/
     to: imapsync/

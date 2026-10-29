@@ -4,7 +4,7 @@ Migra caixas de e-mail de um servidor IMAP para outro no Windows, com interface 
 
 [![Baixar o MigraMail para Windows](https://img.shields.io/badge/Baixar_para_Windows-MigraMail--Setup.exe-22d3ee?style=for-the-badge&logo=windows&logoColor=white&labelColor=0b0e14)](https://github.com/brunokdalcastel/migramail/releases/latest/download/MigraMail-Setup.exe)
 
-O repositório é privado: o download exige estar logado no GitHub.
+Enquanto o repositório estiver privado, o download exige acesso autorizado no GitHub.
 
 Os prints abaixo usam as contas públicas de teste do imapsync (`test1`/`test2.lamiral.info`).
 
@@ -103,7 +103,7 @@ Use uma **senha de app**, não a senha normal da conta:
 
 ## Senhas
 
-As senhas vão ao imapsync por variável de ambiente, nunca pela linha de comando. Os argumentos extras recusam opções que poriam a senha na tela ou no log (`--password1/2`, `--showpasswords`, `--debugenv`). "Lembrar senha" guarda a senha cifrada pelo Windows (DPAPI, só o seu usuário consegue abrir). Senhas do modo "Várias contas" ficam só na memória até você marcar "lembrar".
+As senhas vão ao imapsync por variável de ambiente, nunca pela linha de comando. Os argumentos extras aceitam apenas uma lista de opções de dados com nomes completos. Comandos, tokens OAuth, arquivos de senha, depuração, exclusões e alterações de servidor ou modo são recusados, inclusive no CSV. "Lembrar senha" guarda a senha cifrada pelo Windows (DPAPI, só o seu usuário consegue abrir). Senhas do modo "Várias contas" ficam só na memória até você marcar "lembrar".
 
 ## Onde ficam os dados e os logs
 
@@ -129,3 +129,19 @@ npm run screenshots      # refaz os prints de docs/img (migra de verdade test1 �
 ```
 
 Sem internet: `npm run fetch-imapsync -- --from C:\Tools\imapsync\imapsync_2.314`. O fluxo do projeto (PRD → Spec → fases) está em `docs/`.
+
+### Argumentos extras permitidos
+
+Opções com texto: `--subfolder2`, `--folder`, `--folderrec`, `--folderfirst`, `--folderlast`, `--exclude`, `--f1f2`. Use aspas duplas para espaços. Valores não podem começar com traço ou `+`.
+
+Opções com inteiro positivo: `--maxlinelength`, `--maxsize`, `--minsize`, `--maxage`, `--minage`, `--maxbytespersecond`, `--errorsmax`.
+
+Sem valor: `--nofoldersizes`, `--foldersizes`, `--automap`, `--noautomap`, `--justfolders`, `--syncinternaldates`, `--nosyncinternaldates`, `--useuid`, `--nosyncflags`, `--noresyncflags`, `--noshowpasswords`, `--nodebugenv`. Abreviações e opções desconhecidas são recusadas. Ajuste o modo e os servidores pelos campos da interface. OAuth por argumentos extras não é suportado.
+
+## Licença
+
+O código do MigraMail é distribuído sob a [licença MIT](LICENSE). Componentes de terceiros mantêm suas próprias licenças, descritas em NOTICE e THIRD_PARTY_LICENSES.md.
+
+### Diagnosticar paralelismo
+
+`npx tsx --tsconfig tsconfig.node.json scripts/diagnose-parallel.ts` inicia dois testes de login simultâneos nas contas públicas do imapsync, sem copiar nem apagar mensagens. Requer o motor baixado. Salva horários e resultado em `../parallel-diagnostic` (ou `MIGRAMAIL_DIAGNOSTIC_DIR`). O destino de demonstração usa a exceção de certificado já documentada; as contas de produção mantêm a validação por padrão.
